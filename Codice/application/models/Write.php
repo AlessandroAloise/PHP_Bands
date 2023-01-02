@@ -77,6 +77,17 @@ class Write {
         self::canzoni(self::scaletta());
     }
 
+    public static function insertAnnotazione(){
+        $conn = Database::connect();
+        $query = "INSERT INTO annotazione(posizione, testo, canzone_id) VALUES(?, ?, ?)";
+        $stmt = mysqli_prepare($conn, $query);
+
+        $posizione = 12;
+        $testo = "Annotazione di esempio";
+        $canzone_id = 3;
+        mysqli_stmt_bind_param($stmt, "isi", $posizione, $testo, $canzone_id);
+    }
+
 
 
 }

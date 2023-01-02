@@ -94,30 +94,29 @@ class Get{
 
 
     public static function canzoneTable(){
-        $data = self::canzone();
-        $canzone = (explode(" ",$data[0]));
-        $parole =0;
-        $start= true;
-        echo "<table class='table table-striped'>";
-        echo "<tr>";
-        for($i =0;  $i <= 4;$i++){
-            echo "<th></th>";
+        $conn = Database::connect();
+        $canzone_id = self::canzone();
+        $query = "SELECT testo FROM canzone WHERE id = $canzone_id";
+        $result = mysqli_query($conn, $query);
+        $row = mysqli_fetch_assoc($result);
+        $testo_canzone = $row['testo'];
+        $righe = explode("\n", $testo_canzone);
+        foreach ($righe as $i => $riga) {
+            echo ($i+1) . ". ";
+        
+            $query = "SELECT testo FROM annotazione WHERE canzone_id = $canzone_id AND posizione = $i";
+            $result = mysqli_query($conn, $query);
+            $annotazioni = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        
+            foreach ($annotazioni as $annotazione) {
+                echo "<span>" . $annotazione['testo'] . "</span> ";
+            }
+        
+            echo $riga . "\n";
         }
-
-        for ($i = 0; $i < count($canzone); $i++) {
-            if ($i % 5 == 0) {
-              echo '<tr>';
-            }
-            echo '<td>' . $canzone[$i] . '</td>';
-            if ($i % 5 == 4) {
-              echo '</tr>';
-              for($j =0;  $j <= 4;$j++){
-                echo "<th></th>";
-                }
-            }
-          }
-        echo "</table>";
     }
+
+
 
 
     public static function listSelfScalette(){
