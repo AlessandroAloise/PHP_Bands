@@ -13,6 +13,6 @@
 ## Descrizione
 
 #### Mandato:
-- [Mandato](/Documenti/GestionaleBand.pdf)	
+- [Mandato](/Documenti/Qdc/Gestionale_Band.pdf)	
 #### Struttura:
 - [Documentazione](/Documenti)
